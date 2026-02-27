@@ -62,9 +62,9 @@ let mainWindow = null;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 580,
-    height: 520,
+    height: 680,
     minWidth: 480,
-    minHeight: 400,
+    minHeight: 520,
     title: '공유파일 보호 열기',
     icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {

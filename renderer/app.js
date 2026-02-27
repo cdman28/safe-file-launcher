@@ -377,14 +377,28 @@ function setupDragAndDrop() {
     const files = e.dataTransfer.files;
     if (!files || files.length === 0) return;
 
-    const filePaths = Array.from(files)
-      .map(f => f.path)
+    const allFiles = Array.from(files);
+    const filePaths = allFiles
+      .map(f => {
+        try {
+          // Electron 공식 API: UNC/네트워크 경로 정상 지원
+          return window.api.getPathForFile(f);
+        } catch {
+          // 펴백: file.path 시도
+          return f.path || '';
+        }
+      })
       .filter(p => p && p.trim() !== '');
 
-    // NAS 등 네트워크 경로에서 드래그 시 path가 비어있을 수 있음
+    // 경로를 전혀 가져올 수 없는 극히 드문 경우에만 안내
     if (filePaths.length === 0) {
-      showToast('warning', '네트워크 공유폴더의 파일은 드래그앤드롭이 지원되지 않습니다.\n상단의 "파일 선택하여 등록" 버튼을 사용해 주세요.');
+      showToast('warning', '파일 경로를 읽을 수 없습니다.\n"파일 선택하여 등록" 버튼을 사용해 주세요.');
       return;
+    }
+
+    // 일부만 실패한 경우 성공한 것만 진행
+    if (filePaths.length < allFiles.length) {
+      showToast('info', `${allFiles.length}개 중 ${filePaths.length}개 파일만 등록 가능합니다.`);
     }
 
     try {

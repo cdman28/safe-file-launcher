@@ -3,7 +3,7 @@
 // 역할: Main 프로세스와 Renderer 프로세스 사이의 안전한 통신 브릿지
 // ============================================================
 
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer, webUtils } = require('electron');
 
 // Renderer에 노출할 API 정의
 contextBridge.exposeInMainWorld('api', {
@@ -20,6 +20,9 @@ contextBridge.exposeInMainWorld('api', {
 
   // ── 드래그앤드롭 파일 등록 ──
   registerDroppedFiles: (filePaths) => ipcRenderer.invoke('register-dropped-files', filePaths),
+
+  // ── 파일 경로 추출 (UNC/네트워크 경로 지원) ──
+  getPathForFile: (file) => webUtils.getPathForFile(file),
 
   // ── 유틸리티 ──
   checkFileExists: (filePath) => ipcRenderer.invoke('check-file-exists', filePath),
