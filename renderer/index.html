@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+  <title>공유파일 보호 열기</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 상단 헤더 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="8" fill="url(#logoGrad)"/>
+          <path d="M10 18L16 24L26 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36">
+              <stop stop-color="#3B82F6"/>
+              <stop offset="1" stop-color="#8B5CF6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="header-title">
+        <h1>공유파일 보호 열기</h1>
+        <p class="header-subtitle">원본은 안전하게, 복사본으로 작업하세요</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn-icon" id="btnHistory" title="열기 이력">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12,6 12,12 16,14"/>
+        </svg>
+      </button>
+      <button class="btn-icon" id="btnSettings" title="설정">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 작업 폴더 안내 바 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="folder-bar" id="folderBar">
+    <div class="folder-bar-content">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+      </svg>
+      <span id="folderPathText">작업 폴더를 설정해 주세요</span>
+      <button class="btn-small" id="btnOpenFolder" title="폴더 열기" style="display:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+          <polyline points="15,3 21,3 21,9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 메인 콘텐츠 영역 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- 파일 카드 그리드 -->
+    <div class="file-grid" id="fileGrid">
+      <!-- 파일 카드는 JavaScript에서 동적으로 생성됩니다 -->
+    </div>
+
+    <!-- 파일 추가 영역 (드래그앤드롭 + 버튼) -->
+    <div class="add-area" id="addArea">
+      <div class="add-area-content">
+        <div class="add-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <p class="add-text-main">파일을 여기에 끌어다 놓으세요</p>
+        <p class="add-text-sub">또는</p>
+        <button class="btn-add" id="btnAddFile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          파일 선택하여 등록
+        </button>
+      </div>
+    </div>
+
+    <!-- 빈 상태 안내 (파일이 0개일 때) -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-illustration">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="55" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="2"/>
+          <path d="M40 50L55 65L80 40" stroke="#6366F1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="35" y="70" width="50" height="6" rx="3" fill="#E0E7FF"/>
+          <rect x="42" y="82" width="36" height="4" rx="2" fill="#EEF2FF"/>
+        </svg>
+      </div>
+      <h2>등록된 파일이 없습니다</h2>
+      <p>자주 사용하는 공유 파일을 등록하면<br>클릭 한 번으로 안전하게 열 수 있습니다.</p>
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 설정 모달 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>⚙️ 설정</h2>
+        <button class="btn-close" id="btnCloseSettings">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-group">
+          <label class="setting-label">📁 작업 폴더 (복사 대상)</label>
+          <p class="setting-desc">선택한 파일이 이 폴더로 복사된 후 열립니다.</p>
+          <div class="setting-input-row">
+            <input type="text" class="setting-input" id="inputDestFolder" placeholder="폴더를 선택해 주세요" readonly>
+            <button class="btn-primary" id="btnSelectFolder">폴더 선택</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary btn-large" id="btnSaveSettings">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 이력 사이드패널 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="side-panel-overlay" id="historyOverlay">
+    <div class="side-panel" id="historyPanel">
+      <div class="side-panel-header">
+        <h2>🕐 열기 이력</h2>
+        <button class="btn-close" id="btnCloseHistory">&times;</button>
+      </div>
+      <div class="side-panel-body" id="historyList">
+        <!-- 이력은 JavaScript에서 동적으로 생성됩니다 -->
+      </div>
+      <div class="side-panel-footer">
+        <button class="btn-danger-outline" id="btnClearHistory">이력 전체 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 토스트 알림 컨테이너 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 파일 색상 변경 모달 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="colorModal">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h2>🎨 카드 색상 변경</h2>
+        <button class="btn-close" id="btnCloseColor">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="color-grid" id="colorGrid">
+          <!-- 색상은 JavaScript에서 동적으로 생성됩니다 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

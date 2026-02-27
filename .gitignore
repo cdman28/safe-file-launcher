@@ -1,0 +1,41 @@
+﻿# =========================
+#  Node.js / Electron
+# =========================
+node_modules/
+dist/
+out/
+*.log
+npm-debug.log*
+
+# =========================
+#  OS / IDE 설정
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+desktop.ini
+*.code-workspace
+$RECYCLE.BIN/
+*.lnk
+
+# =========================
+#  보안 관련 (민감정보)
+# =========================
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.pfx
+
+# =========================
+#  로그/임시
+# =========================
+logs/
+*.tmp
+*.temp
+temp/
+tmp/

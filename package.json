@@ -1,0 +1,38 @@
+{
+  "name": "safe-file-opener",
+  "version": "1.0.0",
+  "description": "공유파일 보호 열기 - 공유 파일을 안전하게 복사 후 열어주는 데스크톱 앱",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win"
+  },
+  "author": "cdman28 <cdman28@nate.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.safefileopen.app",
+    "productName": "공유파일 보호 열기",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "공유파일 보호 열기 1.0 Setup.exe",
+      "unicode": true
+    }
+  }
+}
